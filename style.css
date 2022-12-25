@@ -22,7 +22,7 @@ body {
   left: 50%;
   transform: translate(-50%, 0);
   font-family: "Inter", sans-serif;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: none;
   text-align: center;
 }
@@ -52,6 +52,7 @@ body {
   font-style: normal;
   font-size: 24px;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 #color {
@@ -63,13 +64,14 @@ body {
   height: 80%;
   overflow: hidden;
   overflow-y: scroll;
-  padding: 50px 70px 50px 70px;
+  padding: 40px 70px 40px 70px;
   background-color: #fff;
   font-family: "Inter", sans-serif;
   font-size: 32px;
   line-height: 75px;
   border-radius: 15px;
   color: #261c15;
+  text-align: justify;
 }
 
 #box::-webkit-scrollbar {
@@ -83,25 +85,50 @@ body {
 #btn {
   position: fixed;
   bottom: 30px;
+  right: 30px;
+  width: 54px;
+  height: 54px;
   font-family: "JetBrains Mono";
   font-weight: bold;
   font-style: normal;
   font-size: 18px;
-  padding: 15px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 15px 40px; */
   border-radius: 50px;
   border: none;
   background-color: #f05d23;
   color: #fff;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* cursor: pointer; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease;
 }
 
-#btn:hover {
-  background-color: #ed5418;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+#banner {
+  position: fixed;
+  font-family: "Inter";
+  font-size: 20px;
+  font-weight: bold;
+  bottom: 30px;
+  background-color: #e4e6c3;
+  padding: 20px 60px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-spacing: 7px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-#btn:active {
-  background-color: #f05d23;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+#enter {
+  font-family: "JetBrains Mono";
+  font-weight: bold;
+  color: #f05d23;
+}
+
+#enter-icon {
+  width: 36px;
+  margin-left: -10px;
 }
