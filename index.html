@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link href="JetBrainsMono-Bold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +30,6 @@
       <h1 id="title"><span id="color">1 Minute</span> Typing Test</h1>
       <div id="box">
         <p id="content">
-          <!-- <span id="iCursor">|</span> -->
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -35,7 +41,17 @@
           including versions of Lorem Ipsum.
         </p>
       </div>
-      <button id="btn">Start</button>
+      <div id="btn">
+        <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+      <div id="banner">
+        Press&nbsp;
+        <span id="enter">Enter</span>&nbsp;
+        <img
+          src="https://img.icons8.com/fluency-systems-regular/48/f05d23/enter-mac-key.png"
+          id="enter-icon"
+        />&nbsp;key to start
+      </div>
     </div>
 
     <script src="script.js"></script>
