@@ -26,6 +26,44 @@
       <h1 id="result-title">Your Typing Speed is:</h1>
       <h1 id="wpm">40 WPM</h1>
     </div>
+    <div class="sidebar">
+      <h1 id="options">Options</h1>
+      <div id="check">
+        <div class="align centerAlign">
+          <input type="checkbox" name="" id="backspace" class="check" />
+          <label for="backspace" class="changeColor">Backspace</label>
+        </div>
+        <div class="align centerAlign">
+          <input type="checkbox" name="" id="space" class="check" />
+          <label for="space" class="changeColor">Spacebar</label>
+        </div>
+        <div class="align centerAlign">
+          <input type="checkbox" name="" id="case" class="check" />
+          <label for="case" class="changeColor">Case Sensitive</label>
+        </div>
+      </div>
+      <hr />
+      <div id="dropdown">
+        <div class="align marginBottom">
+          <label for="time">Time</label>
+          <select name="" id="time">
+            <option value="1">1 Minute</option>
+            <option value="2">2 Minutes</option>
+            <option value="3">3 Minutes</option>
+            <option value="4">4 Minutes</option>
+            <option value="5">5 Minutes</option>
+          </select>
+        </div>
+        <div class="align">
+          <label for="difficulty" id="marginTop">Difficulty</label>
+          <select name="" id="difficulty">
+            <option value="1">Easy</option>
+            <option value="2">Medium</option>
+            <option value="3">Hard</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <h1 id="title"><span id="color">1 Minute</span> Typing Test</h1>
       <div id="box">
@@ -44,14 +82,15 @@
       <div id="btn">
         <i class="fa fa-play" aria-hidden="true"></i>
       </div>
-      <div id="banner">
-        Press&nbsp;
-        <span id="enter">Enter</span>&nbsp;
-        <img
-          src="https://img.icons8.com/fluency-systems-regular/48/f05d23/enter-mac-key.png"
-          id="enter-icon"
-        />&nbsp;key to start
-      </div>
+    </div>
+
+    <div id="banner">
+      Press&nbsp;
+      <span id="enter">Enter</span>&nbsp;
+      <img
+        src="https://img.icons8.com/fluency-systems-regular/48/f05d23/enter-mac-key.png"
+        id="enter-icon"
+      />&nbsp;key to start
     </div>
 
     <script src="script.js"></script>
