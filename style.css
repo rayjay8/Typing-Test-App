@@ -27,6 +27,105 @@ body {
   text-align: center;
 }
 
+.sidebar {
+  position: absolute;
+  height: 100vh;
+  flex-direction: column;
+  width: 20%;
+  background-color: #f7f7f2;
+  border: 1px solid #e4e6c3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+}
+
+#options {
+  font-family: "JetBrains Mono";
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+#check {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.check {
+  margin-right: 15px;
+}
+
+input.check {
+  width: 17px;
+  height: 17px;
+}
+
+hr {
+  width: 70%;
+  margin: 20px 0;
+  border: none;
+  border-bottom: 1px solid #e4e6c3;
+}
+
+#dropdown {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  padding: 0 20px;
+  border-right: 20px solid transparent;
+  color: #211d1a;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+select:focus {
+  outline: none;
+  background-color: #f05d23;
+  color: #fff;
+}
+
+select option {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  color: #261c15;
+  background-color: #e4e6c3;
+}
+
+.align {
+  margin-bottom: 20px;
+}
+
+.align:first-child {
+  margin-top: 20px;
+}
+
+.centerAlign {
+  display: flex;
+  align-items: center;
+}
+
+.marginBottom {
+  margin-bottom: 40px;
+}
+
 #result-title {
   font-size: 18px;
 }
@@ -38,7 +137,10 @@ body {
 }
 
 .container {
-  width: 100%;
+  position: absolute;
+  width: 80%;
+  top: 0;
+  right: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -50,7 +152,7 @@ body {
   font-family: "JetBrains Mono";
   font-weight: bold;
   font-style: normal;
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 40px;
   text-align: center;
 }
@@ -71,10 +173,14 @@ body {
   line-height: 75px;
   border-radius: 15px;
   color: #261c15;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 #box::-webkit-scrollbar {
+  width: 0;
+}
+
+#box::-moz-scrollbar {
   width: 0;
 }
 
@@ -120,6 +226,19 @@ body {
   word-spacing: 7px;
   border-radius: 15px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  /* transform: translate(0, 0); */
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition: opacity 0.3s ease-in-out, transform 0.1s ease-in-out;
+}
+
+#banner.fade {
+  opacity: 0;
+}
+
+#banner.shake {
+  transform: translateX(-51.5%);
 }
 
 #enter {
