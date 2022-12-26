@@ -5,8 +5,13 @@ const btn = document.getElementById("btn");
 const popup = document.getElementById("popup");
 const wpm = document.getElementById("wpm");
 const title = document.getElementById("title");
-const time = 1;
+const banner = document.getElementById("banner");
+const backspace = document.getElementById("backspace");
+const space = document.getElementById("space");
+const casing = document.getElementById("case");
+let scores = [];
 
+const time = 1;
 let typed = 0;
 
 let text = box.textContent.replace(/[\n\r]+|[\s]{2,}/g, " ").trim();
@@ -66,6 +71,7 @@ function test() {
       if (e.key !== splitText[j]) {
         char.textContent = splitText[j];
       }
+      typed--;
     }
   });
 
@@ -112,6 +118,15 @@ function start() {
         btn.appendChild(stopIcon);
         wpm.innerHTML = Math.round(typed / 5 / time) + " WPM";
       }, 1000);
+
+      setTimeout(() => {
+        scores.push(Math.round(typed / 5 / time));
+        console.log(scores);
+        localStorage.setItem("scores", JSON.stringify(scores));
+        let scoresArray = JSON.parse(localStorage.getItem("scores"));
+        console.log(scoresArray);
+      }, 1000);
+
       let popupTimeout = setTimeout(() => {
         popup.style.display = "flex";
       }, 1000);
@@ -125,9 +140,25 @@ function start() {
   }, 1000);
 }
 
+document.addEventListener("keypress", (e) => {
+  let shake = setInterval(() => {
+    banner.classList.toggle("shake");
+  }, 100);
+  setTimeout(() => {
+    clearInterval(shake);
+    banner.classList.remove("shake");
+  }, 400);
+});
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
+    setTimeout(() => {
+      banner.classList.toggle("fade");
+    }, 1000);
+    setTimeout(() => {
+      banner.style.display = "none";
+    }, 2000);
     start();
     test();
   }
