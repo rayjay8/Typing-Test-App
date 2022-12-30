@@ -22,11 +22,15 @@
     <title>Typing Test</title>
   </head>
   <body>
+    <div id="theme">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </div>
+    <div id="dark"></div>
     <div id="popup">
       <h1 id="result-title">Your Typing Speed is:</h1>
-      <h1 id="wpm">40 WPM</h1>
+      <h1 id="wpm"></h1>
     </div>
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <h1 id="options">Options</h1>
       <div id="check">
         <div class="align centerAlign">
@@ -42,7 +46,7 @@
           <label for="case" class="changeColor">Case Sensitive</label>
         </div>
       </div>
-      <hr />
+      <hr id="hr" />
       <div id="dropdown">
         <div class="align marginBottom">
           <label for="time">Time</label>
@@ -68,6 +72,7 @@
     <div class="container">
       <h1 id="title"><span id="color">1 Minute</span> Typing Test</h1>
       <div id="box">
+        <span id="tempCursor">|</span>
         <p id="content">
           The sun was shining brightly in the sky as I walked down the street. I
           had just finished my morning jog and was feeling energized and ready
