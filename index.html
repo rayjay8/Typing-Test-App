@@ -1,128 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link href="JetBrainsMono-Bold.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Typing Test</title>
-  </head>
-  <body>
-    <div id="theme">
-      <i class="fa-solid fa-moon" id="themeIcon"></i>
-    </div>
-    <div id="dark"></div>
-    <div id="popup">
-      <h1 id="result-title">Your Typing Speed is:</h1>
-      <h1 id="wpm"></h1>
-    </div>
-    <div class="sidebar" id="sidebar">
-      <h1 id="options">Options</h1>
-      <div id="check">
-        <div class="align centerAlign">
-          <input type="checkbox" name="" id="backspace" class="check" />
-          <label for="backspace" class="changeColor">Backspace</label>
-        </div>
-        <div class="align centerAlign">
-          <input type="checkbox" name="" id="space" class="check" />
-          <label for="space" class="changeColor">Spacebar</label>
-        </div>
-        <div class="align centerAlign">
-          <input type="checkbox" name="" id="case" class="check" />
-          <label for="case" class="changeColor">Case Sensitive</label>
-        </div>
-      </div>
-      <hr id="hr" />
-      <div id="dropdown">
-        <div class="align marginBottom">
-          <label for="time">Time</label>
-          <select name="" id="time">
-            <option value="1">1 Minute</option>
-            <option value="2">2 Minutes</option>
-            <option value="3">3 Minutes</option>
-            <option value="4">4 Minutes</option>
-            <option value="5">5 Minutes</option>
-          </select>
-        </div>
-        <div class="align">
-          <label for="difficulty" id="marginTop">Difficulty</label>
-          <select name="" id="difficulty">
-            <option value="1">Easy</option>
-            <option value="2">Medium</option>
-            <option value="3">Hard</option>
-          </select>
-        </div>
-      </div>
-      <button id="submit">Submit</button>
-    </div>
-    <div class="container">
-      <h1 id="title"><span id="color">1 Minute</span> Typing Test</h1>
-      <div id="box">
-        <span id="tempCursor">|</span>
-        <p id="content">
-          The sun was shining brightly in the sky as I walked down the street. I
-          had just finished my morning jog and was feeling energized and ready
-          to tackle the day ahead. I turned the corner and saw my favorite
-          coffee shop, The Daily Grind, just a few blocks away. I quickened my
-          pace, eager to get my hands on a freshly brewed cup of coffee. As I
-          approached the shop, I noticed a long line of people waiting to place
-          their orders. I sighed and joined the queue, wondering how long it
-          would take to get my caffeine fix. As I waited, I pulled out my phone
-          and checked my emails. I had a few messages from work, but nothing too
-          pressing. I put my phone away and glanced around at the other people
-          in line. Most of them were chatting with each other, their faces lit
-          up with excitement. I couldn't help but feel a sense of happiness and
-          community in that moment. It was nice to see people out and about,
-          enjoying their day and each other's company. Finally, it was my turn
-          to order. I stepped up to the counter and greeted the barista, who was
-          wearing a bright smile. "Good morning! What can I get for you today?"
-          she asked. "I'll have a medium coffee with cream and sugar, please," I
-          replied. "Coming right up!" the barista said, as she started to
-          prepare my drink. I paid for my coffee and waited for it to be ready.
-          As I stood there, I couldn't help but feel grateful for the small
-          things in life, like a simple cup of coffee. It may seem like a small
-          pleasure, but it can bring so much joy and comfort to a person's day.
-          Finally, my coffee was ready. I grabbed it and took a sip, savoring
-          the warm, creamy flavor. As I walked out of the coffee shop, I
-          couldn't wait to start my day and see what other little pleasures it
-          might bring.
-        </p>
-      </div>
-      <div id="btn">
-        <i class="fa fa-play" aria-hidden="true"></i>
-      </div>
-    </div>
 
-    <div id="banner">
-      Press&nbsp;
-      <span id="enter">Enter</span>&nbsp;
-      <img
-        src="https://img.icons8.com/fluency-systems-regular/48/f05d23/enter-mac-key.png"
-        id="enter-icon"
-      />&nbsp;key to start
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="JetBrainsMono-Bold.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Typing Test</title>
+</head>
 
-    <script src="script.js"></script>
-    <script>
-      window.addEventListener("keydown", function (e) {
-        if (e.keyCode == 32 && e.target == document.body) {
-          e.preventDefault();
-        }
-      });
-    </script>
-  </body>
+<body>
+  <div id="theme">
+    <i class="fa-solid fa-moon" id="themeIcon"></i>
+  </div>
+  <div id="dark"></div>
+  <div id="popup">
+    <h1 id="result-title">Your Typing Speed is:</h1>
+    <h1 id="wpm"></h1>
+  </div>
+  <div class="sidebar" id="sidebar">
+    <h1 id="options">Options</h1>
+    <div id="check">
+      <div class="align centerAlign">
+        <input type="checkbox" name="" id="backspace" class="check" />
+        <label for="backspace" class="changeColor">Backspace</label>
+      </div>
+      <div class="align centerAlign">
+        <input type="checkbox" name="" id="space" class="check" />
+        <label for="space" class="changeColor">Spacebar</label>
+      </div>
+      <div class="align centerAlign">
+        <input type="checkbox" name="" id="case" class="check" />
+        <label for="case" class="changeColor">Case Sensitive</label>
+      </div>
+    </div>
+    <hr id="hr" />
+    <div id="dropdown">
+      <div class="align marginBottom">
+        <label for="time">Time</label>
+        <select name="" id="time">
+          <option value="1">1 Minute</option>
+          <option value="2">2 Minutes</option>
+          <option value="3">3 Minutes</option>
+          <option value="4">4 Minutes</option>
+          <option value="5">5 Minutes</option>
+        </select>
+      </div>
+      <div class="align">
+        <label for="difficulty" id="marginTop">Difficulty</label>
+        <select name="" id="difficulty">
+          <option value="0">Default</option>
+          <option value="1">Easy</option>
+          <option value="2">Medium</option>
+          <option value="3">Hard</option>
+        </select>
+      </div>
+    </div>
+    <div id="takeInput">
+      <label for="file" id="inputStyle"><input type="file" id="file" accept=".txt">Upload Custom Text</label>
+    </div>
+    <button id="submit">Submit</button>
+  </div>
+  <div id="loading">
+    <div class="lds-ring" id="lds">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  </div>
+  <div class="container" id="container">
+    <h1 id="title"><span id="color">1 Minute</span> Typing Test</h1>
+    <div id="box">
+      <span id="tempCursor">|</span>
+      <p id="content">
+        The sun was shining brightly in the sky as I walked down the street. I
+        had just finished my morning jog and was feeling energized and ready
+        to tackle the day ahead. I turned the corner and saw my favorite
+        coffee shop, The Daily Grind, just a few blocks away. I quickened my
+        pace, eager to get my hands on a freshly brewed cup of coffee. As I
+        approached the shop, I noticed a long line of people waiting to place
+        their orders. I sighed and joined the queue, wondering how long it
+        would take to get my caffeine fix. As I waited, I pulled out my phone
+        and checked my emails. I had a few messages from work, but nothing too
+        pressing. I put my phone away and glanced around at the other people
+        in line. Most of them were chatting with each other, their faces lit
+        up with excitement. I couldn't help but feel a sense of happiness and
+        community in that moment. It was nice to see people out and about,
+        enjoying their day and each other's company. Finally, it was my turn
+        to order. I stepped up to the counter and greeted the barista, who was
+        wearing a bright smile. "Good morning! What can I get for you today?"
+        she asked. "I'll have a medium coffee with cream and sugar, please," I
+        replied. "Coming right up!" the barista said, as she started to
+        prepare my drink. I paid for my coffee and waited for it to be ready.
+        As I stood there, I couldn't help but feel grateful for the small
+        things in life, like a simple cup of coffee. It may seem like a small
+        pleasure, but it can bring so much joy and comfort to a person's day.
+        Finally, my coffee was ready. I grabbed it and took a sip, savoring
+        the warm, creamy flavor. As I walked out of the coffee shop, I
+        couldn't wait to start my day and see what other little pleasures it
+        might bring.
+      </p>
+    </div>
+    <div id="btn">
+      <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div id="banner">
+    Press&nbsp;
+    <span id="enter">Enter</span>&nbsp;
+    <img src="https://img.icons8.com/fluency-systems-regular/48/f05d23/enter-mac-key.png" id="enter-icon" />&nbsp;key to
+    start
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    window.addEventListener("keydown", function (e) {
+      if (e.keyCode == 32 && e.target == document.body) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+
 </html>
