@@ -50,11 +50,12 @@ body {
 
 #options {
   font-family: "JetBrains Mono";
-  font-size: 29px;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 25px;
   color: hsla(26, 12%, 12%, 0.651);
   transition: all 0.4s linear 0.1s;
+  text-align: center;
 }
 
 .optionsToggle {
@@ -177,12 +178,19 @@ input[type="file"] {
 
 #inputStyle {
   background-color: #f7f7f2;
-  padding: 30px 20px;
+  height: 100px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   border-radius: 5px;
   border: 3px dashed rgba(0, 0, 0, 0.5);
   font-family: "Inter", sans-serif;
   color: rgba(0, 0, 0, 0.5);
   transition: all 0.4s linear 0.2s;
+  width: 200px;
+  text-align: center;
 }
 
 .inputStyleToggle {
@@ -195,9 +203,27 @@ input[type="file"] {
   background-color: #e4e6c3;
   color: rgba(0, 0, 0, 0.6);
   border: 3px dashed rgba(0, 0, 0, 0.1);
+  transition: none !important;
+}
+
+#fileName {
+  font-size: 16px;
+  text-align: center;
+}
+
+#remove {
+  margin-top: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  font-size: 13px;
+  color: red !important;
+  display: none;
 }
 
 #submit {
+  position: fixed;
+  bottom: 40px;
   height: 40px;
   border: none;
   background-color: blue;
@@ -207,12 +233,10 @@ input[type="file"] {
   color: #fff;
   cursor: pointer;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
   padding: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 90px;
 }
 
 #submit:hover {
