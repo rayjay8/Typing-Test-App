@@ -25,15 +25,25 @@ const themeIcon = document.getElementById("themeIcon");
 const selectTime = document.getElementById("time");
 const selectDifficulty = document.getElementById("difficulty");
 const inputStyle = document.getElementById("inputStyle");
+const remove = document.getElementById("remove");
+const fileName = document.getElementById("fileName");
 
 let backSpaceCheck = false;
 let caseCheck = false;
+let darkMode = false;
 let scores = [];
 
 let time = 1;
 let typed = 0;
 
+function defaultState() {}
+
+localStorage.getItem("key");
+console.log(localStorage.getItem("key"));
+
 theme.addEventListener("click", () => {
+  darkMode = !darkMode;
+  localStorage.setItem("key", darkMode);
   sidebar.style.backgroundColor = "#f7f7f200";
   loading.classList.toggle("loadingToggle");
   if (dark.style.transform === "scale(100)") {
@@ -63,6 +73,36 @@ theme.addEventListener("click", () => {
   inputStyle.classList.toggle("inputStyleToggle");
   inputStyle.classList.toggle("active");
 });
+
+if (localStorage.getItem("key") === "true") {
+  theme.click();
+}
+
+function checkFile() {
+  if (file.files.length > 0) {
+    file.disabled = true;
+    selectDifficulty.style.pointerEvents = "none";
+    selectDifficulty.style.opacity = "0.5";
+    inputStyle.style.textAlign = "center";
+    fileName.textContent = file.files[0].name;
+    remove.style.display = "block";
+  }
+}
+
+remove.addEventListener("click", () => {
+  file.value = "";
+  selectDifficulty.style.pointerEvents = "auto";
+  selectDifficulty.style.opacity = "1";
+  fileName.textContent = "Upload Custom Text";
+  remove.style.display = "none";
+  setTimeout(() => {
+    file.disabled = false;
+  }, 500);
+});
+
+setInterval(() => {
+  checkFile();
+}, 100);
 
 submit.addEventListener("click", () => {
   setTimeout(() => {
@@ -122,7 +162,7 @@ submit.addEventListener("click", () => {
     switch (selectDifficulty.value) {
       case "1":
         {
-          content.textContent = `The sun was shining brightly in the sky as I walked down the street. I had just finished my morning jog and was feeling energized and ready to tackle the day ahead. I turned the corner and saw my favorite coffee shop, The Daily Grind, just a few blocks away. I quickened my pace, eager to get my hands on a freshly brewed cup of coffee. As I approached the shop, I noticed a long line of people waiting to place their orders. I sighed and joined the queue, wondering how long it would take to get my caffeine fix. As I waited, I pulled out my phone and checked my emails. I had a few messages from work, but nothing too pressing. I put my phone away and glanced around at the other people in line. Most of them were chatting with each other, their faces lit up with excitement. I couldn't help but feel a sense of happiness and community in that moment. It was nice to see people out and about, enjoying their day and each other's company. Finally, it was my turn to order. I stepped up to the counter and greeted the barista, who was wearing a bright smile. "Good morning! What can I get for you today?" she asked. "I'll have a medium coffee with cream and sugar, please," I replied. "Coming right up!" the barista said, as she started to prepare my drink. I paid for my coffee and waited for it to be ready. As I stood there, I couldn't help but feel grateful for the small things in life, like a simple cup of coffee. It may seem like a small pleasure, but it can bring so much joy and comfort to a person's day. Finally, my coffee was ready. I grabbed it and took a sip, savoring the warm, creamy flavor. As I walked out of the coffee shop, I couldn't wait to start my day and see what other little pleasures it might bring.`;
+          content.innerHTML = `<span id="tempCursor">|</span>The sun was shining brightly in the sky as I walked down the street. I had just finished my morning jog and was feeling energized and ready to tackle the day ahead. I turned the corner and saw my favorite coffee shop, The Daily Grind, just a few blocks away. I quickened my pace, eager to get my hands on a freshly brewed cup of coffee. As I approached the shop, I noticed a long line of people waiting to place their orders. I sighed and joined the queue, wondering how long it would take to get my caffeine fix. As I waited, I pulled out my phone and checked my emails. I had a few messages from work, but nothing too pressing. I put my phone away and glanced around at the other people in line. Most of them were chatting with each other, their faces lit up with excitement. I couldn't help but feel a sense of happiness and community in that moment. It was nice to see people out and about, enjoying their day and each other's company. Finally, it was my turn to order. I stepped up to the counter and greeted the barista, who was wearing a bright smile. "Good morning! What can I get for you today?" she asked. "I'll have a medium coffee with cream and sugar, please," I replied. "Coming right up!" the barista said, as she started to prepare my drink. I paid for my coffee and waited for it to be ready. As I stood there, I couldn't help but feel grateful for the small things in life, like a simple cup of coffee. It may seem like a small pleasure, but it can bring so much joy and comfort to a person's day. Finally, my coffee was ready. I grabbed it and took a sip, savoring the warm, creamy flavor. As I walked out of the coffee shop, I couldn't wait to start my day and see what other little pleasures it might bring.`;
         }
         break;
 
@@ -262,7 +302,7 @@ function start() {
     if (seconds <= 10 && seconds > 0 && minutes == 0) {
       btn.style.backgroundColor = "red";
     }
-    if (seconds == 0 && minutes == 0) {
+    if (seconds == 50 && minutes == 0) {
       clearInterval(timer);
       btn.innerHTML = "";
       btn.style.backgroundColor = "green";
@@ -318,4 +358,19 @@ document.addEventListener("keydown", (e) => {
     start();
     test();
   }
+  setTimeout(() => {
+    document.addEventListener("keydown", (e) => {
+      e.preventDefault();
+    });
+    document.body.onkeyup = function (e) {
+      if (e.keyCode == 32) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace") {
+        e.preventDefault();
+      }
+    });
+  }, 4000);
 });
