@@ -4,8 +4,18 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary: #f05d23;
+  --secondary: #f7f7f2;
+  --tertiary: #e4e6c3;
+  --quaternary: #fff;
+  --quinary: #000;
+  --blue: blue;
+  --red: red;
+}
+
 body {
-  background-color: #f7f7f2;
+  background-color: var(--secondary);
   z-index: 1;
 }
 
@@ -13,7 +23,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--quaternary);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -30,7 +40,7 @@ body {
 }
 .lds-ripple div {
   position: absolute;
-  border: 4px solid blue;
+  border: 4px solid var(--blue);
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -71,21 +81,109 @@ body {
 
 #popup {
   position: fixed;
-  width: 40%;
-  height: 50vh;
-  background-color: rgb(218, 213, 213);
-  padding: 150px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 999;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  font-family: "Inter", sans-serif;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  background-color: var(--secondary);
+  padding: 0 222px;
   display: none;
-  text-align: center;
+}
+
+.popupToggle {
+  background-color: black !important;
+}
+
+#close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.closeToggle {
+  color: var(--quaternary) !important;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+}
+
+.spacer {
+  width: 250px;
+}
+
+#illustration {
+  width: 400px;
+  height: 500px;
+}
+
+.position {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#result-title {
+  font-size: 28px;
+  font-family: "JetBrains Mono";
+  margin-bottom: 30px;
+}
+
+.resultToggle {
+  color: rgba(255, 255, 255) !important;
+}
+
+#wpm {
+  font-size: 54px;
+  font-family: "JetBrains Mono";
+  font-weight: ExtraBold;
+  color: var(--primary);
+  margin-bottom: 30px;
+}
+
+#review {
+  font-size: 24px;
+  font-family: "Inter", sans-serif;
+  font-weight: regular;
+  color: rgba(0, 0, 0, 0.75);
+  line-height: 185%;
+  margin-bottom: 80px;
+}
+
+.reviewToggle {
+  color: rgba(255, 255, 255, 0.651) !important;
+}
+
+#retake {
+  background-color: var(--primary);
+  color: var(--quaternary);
+  font-size: 16px;
+  font-family: "JetBrains Mono";
+  font-weight: bold;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+#retake:hover {
+  background-color: var(--primary);
+  color: var(--quaternary);
+  font-size: 16px;
+  font-family: "JetBrains Mono", sans-serif;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  opacity: 0.9;
 }
 
 .sidebar {
@@ -93,18 +191,18 @@ body {
   height: 100vh;
   flex-direction: column;
   width: 20%;
-  background-color: #f7f7f2;
+  background-color: var(--secondary);
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding-top: 40px;
   z-index: 3;
-  border-right: 1px solid #e4e6c3;
+  border-right: 1px solid var(--tertiary);
   transition: all 0.4s linear 0.1s;
 }
 
 .sidebarToggle {
-  color: #fff !important;
+  color: var(--quaternary) !important;
   border-right: 1px solid rgb(36, 36, 36) !important;
 }
 
@@ -144,7 +242,7 @@ hr {
   width: 70%;
   margin: 10px 0;
   border: none;
-  border-bottom: 1px solid #e4e6c3;
+  border-bottom: 1px solid var(--tertiary);
   transition: all 0.4s linear 0.1s;
 }
 
@@ -170,7 +268,7 @@ hr {
 }
 
 .selectToggle {
-  color: #fff;
+  color: var(--quaternary);
   background-color: #150050;
 }
 
@@ -179,7 +277,7 @@ select {
   height: 40px;
   border: none;
   border-radius: 5px;
-  color: #fff;
+  color: var(--quaternary);
   font-family: "Inter", sans-serif;
   font-size: 18px;
   padding: 0 20px;
@@ -191,8 +289,8 @@ select {
 
 select:focus {
   outline: none;
-  background-color: #f05d23;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--quaternary);
   transition: none !important;
 }
 
@@ -200,7 +298,7 @@ select option {
   font-family: "JetBrains Mono", monospace;
   font-size: 18px;
   color: #261c15;
-  background-color: #e4e6c3;
+  background-color: var(--tertiary);
 }
 
 .align {
@@ -237,7 +335,7 @@ input[type="file"] {
 }
 
 #inputStyle {
-  background-color: #f7f7f2;
+  background-color: var(--secondary);
   height: 100px;
   width: 70px;
   display: flex;
@@ -254,13 +352,13 @@ input[type="file"] {
 }
 
 .inputStyleToggle {
-  background-color: #000000 !important;
+  background-color: var(--quinary) !important;
   color: rgba(255, 255, 255, 0.5) !important;
   border: 3px dashed rgba(255, 255, 255, 0.5) !important;
 }
 
 #inputStyle:hover {
-  background-color: #e4e6c3;
+  background-color: var(--tertiary);
   color: rgba(0, 0, 0, 0.6);
   border: 3px dashed rgba(0, 0, 0, 0.1);
   transition: none !important;
@@ -277,7 +375,7 @@ input[type="file"] {
   text-underline-offset: 3px;
   cursor: pointer;
   font-size: 13px;
-  color: red !important;
+  color: var(--red) !important;
   display: none;
 }
 
@@ -286,11 +384,11 @@ input[type="file"] {
   bottom: 40px;
   height: 40px;
   border: none;
-  background-color: blue;
+  background-color: var(--blue);
   font-family: "JetBrains Mono", monospace;
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
+  color: var(--quaternary);
   cursor: pointer;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
   padding: 25px;
@@ -311,16 +409,6 @@ input[type="file"] {
   background-color: rgb(0, 0, 238);
 }
 
-#result-title {
-  font-size: 18px;
-}
-
-#wpm {
-  font-family: "JetBrains Mono", monospace;
-  font-weight: bold;
-  margin-top: 50px;
-}
-
 .container {
   position: absolute;
   width: 80%;
@@ -335,7 +423,7 @@ input[type="file"] {
 }
 
 #loading {
-  background-color: #f7f7f2;
+  background-color: var(--secondary);
   position: fixed;
   width: 80%;
   height: 100vh;
@@ -349,7 +437,7 @@ input[type="file"] {
 }
 
 .loadingToggle {
-  background-color: #000 !important;
+  background-color: var(--quinary) !important;
 }
 
 .lds-ring {
@@ -367,10 +455,10 @@ input[type="file"] {
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 6.5px solid blue;
+  border: 6.5px solid var(--blue);
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: blue transparent transparent transparent;
+  border-color: var(--blue) transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
@@ -401,11 +489,11 @@ input[type="file"] {
 }
 
 .titleToggle {
-  color: #fff !important;
+  color: var(--quaternary) !important;
 }
 
 #color {
-  color: #f05d23;
+  color: var(--primary);
 }
 
 #box {
@@ -414,7 +502,7 @@ input[type="file"] {
   overflow: hidden;
   overflow-y: scroll;
   padding: 40px 70px 40px 70px;
-  background-color: #fff;
+  background-color: var(--quaternary);
   font-family: "Inter", sans-serif;
   font-size: 32px;
   line-height: 75px;
@@ -427,7 +515,7 @@ input[type="file"] {
 
 .boxToggle {
   background-color: #150050 !important;
-  color: #fff !important;
+  color: var(--quaternary) !important;
 }
 
 #box::-webkit-scrollbar {
@@ -474,8 +562,8 @@ input[type="file"] {
   /* padding: 15px 40px; */
   border-radius: 50px;
   border: none;
-  background-color: #f05d23;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--quaternary);
   /* cursor: pointer; */
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease;
@@ -487,7 +575,7 @@ input[type="file"] {
   font-size: 20px;
   font-weight: bold;
   bottom: 30px;
-  background-color: #e4e6c3;
+  background-color: var(--tertiary);
   padding: 20px 60px;
   z-index: 999;
   display: flex;
@@ -514,7 +602,7 @@ input[type="file"] {
 #enter {
   font-family: "JetBrains Mono";
   font-weight: bold;
-  color: #f05d23;
+  color: var(--primary);
 }
 
 #enter-icon {
@@ -533,7 +621,7 @@ input[type="file"] {
   align-items: center;
   border-radius: 50px;
   border: none;
-  background-color: #ffffff;
+  background-color: var(--quaternary);
   cursor: pointer;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
   z-index: 1;
@@ -553,7 +641,7 @@ input[type="file"] {
   align-items: center;
   border-radius: 50px;
   border: none;
-  background-color: #000;
+  background-color: var(--quinary);
   cursor: pointer;
   transform: scale(0);
   z-index: -1000;
