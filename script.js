@@ -13,6 +13,10 @@ const lds = document.getElementById("lds");
 const content = document.getElementById("content");
 const btn = document.getElementById("btn");
 const popup = document.getElementById("popup");
+const close = document.getElementById("close");
+const resultTile = document.getElementById("result-title");
+const review = document.getElementById("review");
+const retake = document.getElementById("retake");
 const wpm = document.getElementById("wpm");
 const title = document.getElementById("title");
 const banner = document.getElementById("banner");
@@ -67,21 +71,17 @@ theme.addEventListener("click", () => {
   }, 350);
 
   box.classList.toggle("boxToggle");
-  box.classList.toggle("active");
   title.classList.toggle("titleToggle");
-  title.classList.toggle("active");
   sidebar.classList.toggle("sidebarToggle");
-  sidebar.classList.toggle("active");
   options.classList.toggle("optionsToggle");
-  options.classList.toggle("active");
   selectDifficulty.classList.toggle("selectToggle");
-  selectDifficulty.classList.toggle("active");
   selectTime.classList.toggle("selectToggle");
-  selectTime.classList.toggle("active");
   hr.classList.toggle("hrToggle");
-  hr.classList.toggle("active");
   inputStyle.classList.toggle("inputStyleToggle");
-  inputStyle.classList.toggle("active");
+  popup.classList.toggle("popupToggle");
+  resultTile.classList.toggle("resultToggle");
+  review.classList.toggle("reviewToggle");
+  close.classList.toggle("closeToggle");
 });
 
 if (localStorage.getItem("key") === "true") {
@@ -323,19 +323,48 @@ function start() {
       stopIcon.setAttribute("class", "fas fa-stop");
       btn.appendChild(stopIcon);
 
-      wpm.innerHTML = Math.round(typed / 5 / time) + " WPM";
+      let wordsPerMinute = Math.round(typed / 5 / time);
+      wpm.innerHTML = wordsPerMinute + " WPM";
 
       scores.push(Math.round(typed / 5 / time));
       localStorage.setItem("scores", JSON.stringify(scores));
       let scoresArray = JSON.parse(localStorage.getItem("scores"));
 
       popup.style.display = "flex";
-      document.addEventListener("mouseup", (e) => {
-        if (!popup.contains(e.target)) {
-          popup.style.display = "none";
-          location.reload();
-        }
+      close.addEventListener("click", () => {
+        location.reload();
       });
+      retake.addEventListener("click", () => {
+        location.reload();
+      });
+
+      console.log(wordsPerMinute);
+
+      if (wordsPerMinute < 10) {
+        review.innerHTML = "You are in the bottom 10% of typists!";
+        wpm.style.color = "red";
+      } else if (wordsPerMinute >= 10 && wordsPerMinute < 20) {
+        review.innerHTML = "You need some massive improvement and practise!";
+      } else if (wordsPerMinute >= 20 && wordsPerMinute < 30) {
+        review.innerHTML = "You are below average and can do better!";
+      } else if (wordsPerMinute >= 30 && wordsPerMinute < 40) {
+        review.innerHTML = "Decent, but still below average, keep practising!";
+      } else if (wordsPerMinute >= 40 && wordsPerMinute < 50) {
+        review.innerHTML =
+          "You are now an average typist. You still have significant room for improvement";
+      } else if (wordsPerMinute >= 50 && wordsPerMinute < 60) {
+        review.innerHTML =
+          "Congratulations! You are now above average. Keep practising to improve further!";
+      } else if (wordsPerMinute >= 60 && wordsPerMinute < 80) {
+        review.innerHTML =
+          "You are above average and can apply for typing jobs!";
+      } else if (wordsPerMinute >= 80 && wordsPerMinute < 100) {
+        review.innerHTML =
+          "You are a catch! You are now in the top 10% of typists!";
+      } else {
+        review.innerHTML =
+          "You are a beast! You are now in the top 1% of typists!";
+      }
     }
   }
 
