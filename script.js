@@ -1,6 +1,7 @@
 const load = document.getElementById("load");
 const color = document.getElementById("color");
 const sidebar = document.getElementById("sidebar");
+const warning = document.getElementById("warning");
 const file = document.getElementById("file");
 const options = document.getElementById("options");
 const hr = document.getElementById("hr");
@@ -36,6 +37,8 @@ const fileName = document.getElementById("fileName");
 let backSpaceCheck = false;
 let caseCheck = false;
 let darkMode = false;
+let fileCheck = false;
+let selection = 0;
 let j = 0;
 let scores = [];
 
@@ -55,6 +58,43 @@ document.onreadystatechange = () => {
 localStorage.getItem("key");
 console.log(localStorage.getItem("key"));
 
+backspace.addEventListener("click", () => {
+  backspace.blur();
+  if (backspace.checked) {
+    selection++;
+  } else {
+    selection--;
+  }
+});
+
+space.addEventListener("click", () => {
+  space.blur();
+  if (space.checked) {
+    selection++;
+  } else {
+    selection--;
+  }
+});
+
+casing.addEventListener("click", () => {
+  casing.blur();
+  if (casing.checked) {
+    selection++;
+  } else {
+    selection--;
+  }
+});
+
+selectTime.addEventListener("change", () => {
+  selectTime.blur();
+  selection++;
+});
+
+selectDifficulty.addEventListener("change", () => {
+  selectDifficulty.blur();
+  selection++;
+});
+
 theme.addEventListener("click", () => {
   darkMode = !darkMode;
   localStorage.setItem("key", darkMode);
@@ -68,8 +108,10 @@ theme.addEventListener("click", () => {
   setTimeout(() => {
     themeIcon.classList.toggle("fa-moon");
     themeIcon.classList.toggle("fa-sun");
-  }, 350);
+    theme.classList.toggle("themeToggle");
+  }, 400);
 
+  banner.classList.toggle("bannerToggle");
   box.classList.toggle("boxToggle");
   title.classList.toggle("titleToggle");
   sidebar.classList.toggle("sidebarToggle");
@@ -88,6 +130,11 @@ if (localStorage.getItem("key") === "true") {
   theme.click();
 }
 
+inputStyle.addEventListener("input", () => {
+  inputStyle.blur();
+  fileCheck = true;
+});
+
 function checkFile() {
   if (file.files.length > 0) {
     file.disabled = true;
@@ -100,6 +147,7 @@ function checkFile() {
 }
 
 remove.addEventListener("click", () => {
+  fileCheck = false;
   file.value = "";
   selectDifficulty.style.pointerEvents = "auto";
   selectDifficulty.style.opacity = "1";
@@ -115,15 +163,65 @@ setInterval(() => {
 }, 100);
 
 submit.addEventListener("click", () => {
+  submit.blur();
+  selection = 0;
+  fileCheck = false;
+  console.log(fileCheck);
   setTimeout(() => {
     const reader = new FileReader();
     reader.readAsText(file.files[0]);
     reader.onload = () => {
       content.textContent = reader.result;
       const text = content.textContent.replace(/\s+/g, " ").trim();
-      content.textContent = text;
+      content.innerHTML = `<span id="tempCursor">|</span>` + text;
     };
   }, 500);
+
+  remove.addEventListener("click", () => {
+    setTimeout(() => {
+      content.innerHTML = `<span id="tempCursor">|</span>The sun was shining brightly in the sky
+      as I walked down the street. I had just finished my morning jog and
+      was feeling energized and ready to tackle the day ahead. I turned the
+      corner and saw my favorite coffee shop, The Daily Grind, just a few
+      blocks away. I quickened my pace, eager to get my hands on a freshly
+      brewed cup of coffee. As I approached the shop, I noticed a long line
+      of people waiting to place their orders. I sighed and joined the
+      queue, wondering how long it would take to get my caffeine fix. As I
+      waited, I pulled out my phone and checked my emails. I had a few
+      messages from work, but nothing too pressing. I put my phone away and
+      glanced around at the other people in line. Most of them were chatting
+      with each other, their faces lit up with excitement. I couldn't help
+      but feel a sense of happiness and community in that moment. It was
+      nice to see people out and about, enjoying their day and each other's
+      company. Finally, it was my turn to order. I stepped up to the counter
+      and greeted the barista, who was wearing a bright smile. "Good
+      morning! What can I get for you today?" she asked. "I'll have a medium
+      coffee with cream and sugar, please," I replied. "Coming right up!"
+      the barista said, as she started to prepare my drink. I paid for my
+      coffee and waited for it to be ready. As I stood there, I couldn't
+      help but feel grateful for the small things in life, like a simple cup
+      of coffee. It may seem like a small pleasure, but it can bring so much
+      joy and comfort to a person's day. Finally, my coffee was ready. I
+      grabbed it and took a sip, savoring the warm, creamy flavor. As I
+      walked out of the coffee shop, I couldn't wait to start my day and see
+      what other little pleasures it might bring.`;
+    }, 500);
+    loading.style.transform = "translateX(0%)";
+    setTimeout(() => {
+      loading.style.transform = "translateX(-130%)";
+    }, 2500);
+
+    setTimeout(() => {
+      lds.style.opacity = "1";
+    }, 500);
+
+    setTimeout(() => {
+      lds.style.opacity = "0";
+    }, 2200);
+
+    theme.style.zIndex = "999";
+    btn.style.zIndex = "999";
+  });
 
   setTimeout(() => {
     switch (selectTime.value) {
@@ -172,20 +270,19 @@ submit.addEventListener("click", () => {
     switch (selectDifficulty.value) {
       case "1":
         {
-          content.textContent = `The sun was shining brightly in the sky as I walked down the street. I had just finished my morning jog and was feeling energized and ready to tackle the day ahead. I turned the corner and saw my favorite coffee shop, The Daily Grind, just a few blocks away. I quickened my pace, eager to get my hands on a freshly brewed cup of coffee. As I approached the shop, I noticed a long line of people waiting to place their orders. I sighed and joined the queue, wondering how long it would take to get my caffeine fix. As I waited, I pulled out my phone and checked my emails. I had a few messages from work, but nothing too pressing. I put my phone away and glanced around at the other people in line. Most of them were chatting with each other, their faces lit up with excitement. I couldn't help but feel a sense of happiness and community in that moment. It was nice to see people out and about, enjoying their day and each other's company. Finally, it was my turn to order. I stepped up to the counter and greeted the barista, who was wearing a bright smile. "Good morning! What can I get for you today?" she asked. "I'll have a medium coffee with cream and sugar, please," I replied. "Coming right up!" the barista said, as she started to prepare my drink. I paid for my coffee and waited for it to be ready. As I stood there, I couldn't help but feel grateful for the small things in life, like a simple cup of coffee. It may seem like a small pleasure, but it can bring so much joy and comfort to a person's day. Finally, my coffee was ready. I grabbed it and took a sip, savoring the warm, creamy flavor. As I walked out of the coffee shop, I couldn't wait to start my day and see what other little pleasures it might bring.`;
+          content.innerHTML = `<span id="tempCursor">|</span>The sun was shining brightly in the sky as I walked down the street. I had just finished my morning jog and was feeling energized and ready to tackle the day ahead. I turned the corner and saw my favorite coffee shop, The Daily Grind, just a few blocks away. I quickened my pace, eager to get my hands on a freshly brewed cup of coffee. As I approached the shop, I noticed a long line of people waiting to place their orders. I sighed and joined the queue, wondering how long it would take to get my caffeine fix. As I waited, I pulled out my phone and checked my emails. I had a few messages from work, but nothing too pressing. I put my phone away and glanced around at the other people in line. Most of them were chatting with each other, their faces lit up with excitement. I couldn't help but feel a sense of happiness and community in that moment. It was nice to see people out and about, enjoying their day and each other's company. Finally, it was my turn to order. I stepped up to the counter and greeted the barista, who was wearing a bright smile. "Good morning! What can I get for you today?" she asked. "I'll have a medium coffee with cream and sugar, please," I replied. "Coming right up!" the barista said, as she started to prepare my drink. I paid for my coffee and waited for it to be ready. As I stood there, I couldn't help but feel grateful for the small things in life, like a simple cup of coffee. It may seem like a small pleasure, but it can bring so much joy and comfort to a person's day. Finally, my coffee was ready. I grabbed it and took a sip, savoring the warm, creamy flavor. As I walked out of the coffee shop, I couldn't wait to start my day and see what other little pleasures it might bring.`;
         }
         break;
 
       case "2":
         {
-          content.textContent =
-            "The verdant landscape stretched out before me as I stood atop the hill, the panoramic vista taking my breath away. The sun was setting behind the distant mountains, casting a warm glow over the rolling hills and forests below. I couldn't help but feel a sense of awe at the majesty of nature, the way it could inspire such a feeling of grandeur and insignificance all at once. I descended the hill, my footsteps falling softly on the dew-laden grass. As I walked, my thoughts turned to the day's events. It had been a day of great productivity, filled with numerous tasks and responsibilities that had kept me occupied from dawn till dusk. But despite the demands of my work, I had found solace in the tranquility of the outdoors, the peaceful surroundings providing a much-needed respite from the frenetic pace of my daily life. As I reached the bottom of the hill, I came upon a babbling brook, its clear waters gurgling over the rocks and pebbles that lined its bed. I sat down on a nearby log and watched as a school of minnows darted through the water, their iridescent scales glinting in the fading light. I closed my eyes and took a deep breath, letting the serene atmosphere wash over me. It was moments like these that reminded me of the importance of slowing down and savoring the simple pleasures of life. Too often, we get caught up in the hustle and bustle of our daily routines, forgetting to take the time to appreciate the beauty that surrounds us. As the sun set, I rose from my perch and made my way back home. As I walked, I couldn't help but feel a sense of gratitude for the day's experiences, the difficult words and challenging tasks that had tested my mettle and pushed me to grow. For in the end, it is through facing and overcoming such challenges that we truly come to understand our own strength and resilience.";
+          content.innerHTML = `<span id="tempCursor">|</span>The verdant landscape stretched out before me as I stood atop the hill, the panoramic vista taking my breath away. The sun was setting behind the distant mountains, casting a warm glow over the rolling hills and forests below. I couldn't help but feel a sense of awe at the majesty of nature, the way it could inspire such a feeling of grandeur and insignificance all at once. I descended the hill, my footsteps falling softly on the dew-laden grass. As I walked, my thoughts turned to the day's events. It had been a day of great productivity, filled with numerous tasks and responsibilities that had kept me occupied from dawn till dusk. But despite the demands of my work, I had found solace in the tranquility of the outdoors, the peaceful surroundings providing a much-needed respite from the frenetic pace of my daily life. As I reached the bottom of the hill, I came upon a babbling brook, its clear waters gurgling over the rocks and pebbles that lined its bed. I sat down on a nearby log and watched as a school of minnows darted through the water, their iridescent scales glinting in the fading light. I closed my eyes and took a deep breath, letting the serene atmosphere wash over me. It was moments like these that reminded me of the importance of slowing down and savoring the simple pleasures of life. Too often, we get caught up in the hustle and bustle of our daily routines, forgetting to take the time to appreciate the beauty that surrounds us. As the sun set, I rose from my perch and made my way back home. As I walked, I couldn't help but feel a sense of gratitude for the day's experiences, the difficult words and challenging tasks that had tested my mettle and pushed me to grow. For in the end, it is through facing and overcoming such challenges that we truly come to understand our own strength and resilience.`;
         }
         break;
 
       case "3":
         {
-          content.textContent = `The fenestella glimmered in the opalescent light of the nebula, casting a faint glow on the pellucid walls of the chronocar. As the temporal vessel navigated through the wormhole, its crew of chrononauts marveled at the exotic vistas unfurling before them. Captain Ariadne, a fierce and sagacious woman with skin as dark as onyx and hair like a halo of solar flames, stood at the helm, her eyes fixed on the chronometer. "We're approaching the singularity," she announced, her voice laced with anticipation. "Prepare for temporospatial displacement." The chrononauts hastened to their stations, their hearts racing with excitement and trepidation. They knew that venturing into the singularity was a perilous undertaking, but they also knew that it held the key to unlocking the secrets of the multiverse. Dr. Erebus, the ship's chief scientist, peered through the periscope, his gaunt face contorted with awe. "I can see it! The singularity is a swirling vortex of energy, surrounded by swirling clouds of plasma and radiation. It's like nothing I've ever seen before." As the chronocar drew closer to the singularity, the space-time fabric began to ripple and distort. The chrononauts felt a sense of vertigo wash over them, as if the very foundations of reality were shifting beneath their feet. But Captain Ariadne remained steady, her hand steady on the controls. "Hold on," she said, her voice steady. "We're almost there." With a final burst of speed, the chronocar hurtled into the singularity, and the chrononauts felt themselves tumbling through a maelstrom of colors and shapes. It was as if they were falling through a kaleidoscope of infinite possibility, each moment a new and wondrous vista. And then, as suddenly as it had begun, it was over. The chronocar emerged from the singularity, and the chrononauts found themselves back in the familiar confines of normal space. Captain Ariadne let out a triumphant whoop. "We did it! We've traveled through time and space, and returned unscathed. This is a momentous day for science, and for humanity." The chrononauts erupted into cheers and applause, their spirits soaring with pride and exhilaration. They had dared to venture into the unknown, and they had returned victorious. They had opened a door to a new and wondrous world, and they knew that their journey had only just begun.`;
+          content.innerHTML = `<span id="tempCursor">|</span>The fenestella glimmered in the opalescent light of the nebula, casting a faint glow on the pellucid walls of the chronocar. As the temporal vessel navigated through the wormhole, its crew of chrononauts marveled at the exotic vistas unfurling before them. Captain Ariadne, a fierce and sagacious woman with skin as dark as onyx and hair like a halo of solar flames, stood at the helm, her eyes fixed on the chronometer. "We're approaching the singularity," she announced, her voice laced with anticipation. "Prepare for temporospatial displacement." The chrononauts hastened to their stations, their hearts racing with excitement and trepidation. They knew that venturing into the singularity was a perilous undertaking, but they also knew that it held the key to unlocking the secrets of the multiverse. Dr. Erebus, the ship's chief scientist, peered through the periscope, his gaunt face contorted with awe. "I can see it! The singularity is a swirling vortex of energy, surrounded by swirling clouds of plasma and radiation. It's like nothing I've ever seen before." As the chronocar drew closer to the singularity, the space-time fabric began to ripple and distort. The chrononauts felt a sense of vertigo wash over them, as if the very foundations of reality were shifting beneath their feet. But Captain Ariadne remained steady, her hand steady on the controls. "Hold on," she said, her voice steady. "We're almost there." With a final burst of speed, the chronocar hurtled into the singularity, and the chrononauts felt themselves tumbling through a maelstrom of colors and shapes. It was as if they were falling through a kaleidoscope of infinite possibility, each moment a new and wondrous vista. And then, as suddenly as it had begun, it was over. The chronocar emerged from the singularity, and the chrononauts found themselves back in the familiar confines of normal space. Captain Ariadne let out a triumphant whoop. "We did it! We've traveled through time and space, and returned unscathed. This is a momentous day for science, and for humanity." The chrononauts erupted into cheers and applause, their spirits soaring with pride and exhilaration. They had dared to venture into the unknown, and they had returned victorious. They had opened a door to a new and wondrous world, and they knew that their journey had only just begun.`;
         }
         break;
 
@@ -212,6 +309,8 @@ submit.addEventListener("click", () => {
 });
 
 function test() {
+  theme.style.pointerEvents = "none";
+  theme.style.opacity = "0.5";
   let text = content.textContent.replace(/\s+/g, " ").trim();
   const splitText = text.split("");
 
@@ -248,7 +347,11 @@ function test() {
     const char = document.getElementById("letter" + j);
     if (caseCheck) {
       if (e.key.toUpperCase() === char.textContent.toUpperCase()) {
-        char.style.color = "green";
+        if (darkMode) {
+          char.style.color = "rgba(255, 255, 255, 0.5)";
+        } else {
+          char.style.color = "rgba(38, 28, 21, 0.5)";
+        }
         char.insertAdjacentElement("afterend", cursor);
         typed++;
       } else {
@@ -258,7 +361,11 @@ function test() {
       }
     } else {
       if (e.key === char.textContent) {
-        char.style.color = "green";
+        if (darkMode) {
+          char.style.color = "rgba(255, 255, 255, 0.5)";
+        } else {
+          char.style.color = "rgba(38, 28, 21, 0.5)";
+        }
         char.insertAdjacentElement("afterend", cursor);
         typed++;
       } else {
@@ -275,7 +382,11 @@ function test() {
       j--;
       const char = document.getElementById("letter" + j);
       char.insertAdjacentElement("beforebegin", cursor);
-      char.style.color = "black";
+      if (darkMode) {
+        char.style.color = "white";
+      } else {
+        char.style.color = "black";
+      }
       if (e.key !== splitText[j]) {
         char.textContent = splitText[j];
       }
@@ -287,7 +398,11 @@ function test() {
     if (e.keyCode == 32) {
       const char = document.getElementById("letter" + j);
       char.insertAdjacentElement("afterend", cursor);
-      char.style.color = "black";
+      if (darkMode) {
+        char.style.color = "rgba(255, 255, 255)";
+      } else {
+        char.style.color = "black";
+      }
       if (e.key !== splitText[j]) {
         char.textContent = splitText[j];
       }
@@ -313,7 +428,7 @@ function start() {
     if (seconds <= 10 && seconds > 0 && minutes == 0) {
       btn.style.backgroundColor = "red";
     }
-    if (seconds == 58 && minutes == 0) {
+    if (seconds == 0 && minutes == 0) {
       clearInterval(timer);
       btn.innerHTML = "";
       btn.style.backgroundColor = "green";
@@ -372,45 +487,59 @@ function start() {
 }
 
 document.addEventListener("keypress", (e) => {
-  let shake = setInterval(() => {
-    banner.classList.toggle("shake");
-  }, 100);
-  setTimeout(() => {
-    clearInterval(shake);
-    banner.classList.remove("shake");
-  }, 400);
+  if (selection > 0 || fileCheck) {
+    e.preventDefault();
+  } else {
+    let shake = setInterval(() => {
+      banner.classList.toggle("shake");
+    }, 100);
+    setTimeout(() => {
+      clearInterval(shake);
+      banner.classList.remove("shake");
+    }, 400);
+  }
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    sidebar.style.pointerEvents = "none";
-    sidebar.style.opacity = "0.5";
-    content.style.display = "none";
-    box.style.display = "block";
-    tempCursor.outerHTML = "";
+  if (selection > 0 || fileCheck) {
+    warning.style.opacity = "1";
+    warning.style.transform = "translate(-50%, -50%)";
     setTimeout(() => {
-      banner.classList.toggle("fade");
-    }, 1000);
-    setTimeout(() => {
-      banner.style.display = "none";
-    }, 2000);
-    start();
-    test();
-  }
-  setTimeout(() => {
-    document.addEventListener("keydown", (e) => {
+      warning.style.opacity = "0";
+      warning.style.transform = "translate(-60%, -50%)";
+    }, 1500);
+  } else {
+    if (e.key === "Enter") {
       e.preventDefault();
-    });
-    document.body.onkeyup = function (e) {
-      if (e.keyCode == 32) {
+      sidebar.style.pointerEvents = "none";
+      sidebar.style.opacity = "0.5";
+      content.style.display = "none";
+      box.style.display = "block";
+      let tempCursor = document.getElementById("tempCursor");
+      tempCursor.remove();
+      setTimeout(() => {
+        banner.classList.toggle("fade");
+      }, 1000);
+      setTimeout(() => {
+        banner.style.display = "none";
+      }, 2000);
+      start();
+      test();
+    }
+    setTimeout(() => {
+      document.addEventListener("keydown", (e) => {
         e.preventDefault();
-      }
-    };
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace") {
-        e.preventDefault();
-      }
-    });
-  }, time * 60 * 1000 + 1000);
+      });
+      document.body.onkeyup = function (e) {
+        if (e.keyCode == 32) {
+          e.preventDefault();
+        }
+      };
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace") {
+          e.preventDefault();
+        }
+      });
+    }, time * 60 * 1000 + 1000);
+  }
 });
