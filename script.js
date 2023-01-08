@@ -12,6 +12,7 @@ const loading = document.getElementById("loading");
 const ldsRing = document.querySelectorAll("lds-ring");
 const lds = document.getElementById("lds");
 const content = document.getElementById("content");
+const retry = document.getElementById("retry");
 const btn = document.getElementById("btn");
 const popup = document.getElementById("popup");
 const close = document.getElementById("close");
@@ -22,7 +23,7 @@ const wpm = document.getElementById("wpm");
 const title = document.getElementById("title");
 const banner = document.getElementById("banner");
 const backspace = document.getElementById("backspace");
-const space = document.getElementById("space");
+const errors = document.getElementById("errors");
 const casing = document.getElementById("case");
 const submit = document.getElementById("submit");
 const theme = document.getElementById("theme");
@@ -38,12 +39,18 @@ let backSpaceCheck = false;
 let caseCheck = false;
 let darkMode = false;
 let fileCheck = false;
+let errorCheck = false;
+let validity = false;
 let selection = 0;
 let j = 0;
+let textLength = 0;
 let scores = [];
 
 let time = 1;
 let typed = 0;
+let wrong = 0;
+let gross = 0;
+let accuracy;
 
 document.onreadystatechange = () => {
   if (document.readyState !== "complete") {
@@ -67,9 +74,9 @@ backspace.addEventListener("click", () => {
   }
 });
 
-space.addEventListener("click", () => {
-  space.blur();
-  if (space.checked) {
+errors.addEventListener("click", () => {
+  errors.blur();
+  if (errors.checked) {
     selection++;
   } else {
     selection--;
@@ -98,6 +105,14 @@ selectDifficulty.addEventListener("change", () => {
 theme.addEventListener("click", () => {
   darkMode = !darkMode;
   localStorage.setItem("key", darkMode);
+  inputStyle.style.transition = "all 0.4s linear 0.2s";
+  selectTime.style.transition = "all 0.4s linear 0.2s";
+  selectDifficulty.style.transition = "all 0.4s linear 0.2s";
+  setTimeout(() => {
+    inputStyle.style.transition = "none";
+    selectTime.style.transition = "none";
+    selectDifficulty.style.transition = "none";
+  }, 600);
   sidebar.style.backgroundColor = "#f7f7f200";
   loading.classList.toggle("loadingToggle");
   if (dark.style.transform === "scale(100)") {
@@ -166,7 +181,6 @@ submit.addEventListener("click", () => {
   submit.blur();
   selection = 0;
   fileCheck = false;
-  console.log(fileCheck);
   setTimeout(() => {
     const reader = new FileReader();
     reader.readAsText(file.files[0]);
@@ -262,6 +276,11 @@ submit.addEventListener("click", () => {
     backSpaceCheck = true;
   }
 
+  if (errors.checked) {
+    errorCheck = true;
+    console.log(errorCheck);
+  }
+
   if (casing.checked) {
     caseCheck = true;
   }
@@ -312,6 +331,8 @@ function test() {
   theme.style.pointerEvents = "none";
   theme.style.opacity = "0.5";
   let text = content.textContent.replace(/\s+/g, " ").trim();
+  textLength = text.length;
+  console.log(textLength);
   const splitText = text.split("");
 
   const words = text.split(" ");
@@ -357,7 +378,10 @@ function test() {
       } else {
         char.textContent = e.key;
         char.style.color = "red";
+        char.style.backgroundColor = "transparent";
         char.insertAdjacentElement("afterend", cursor);
+        typed++;
+        wrong++;
       }
     } else {
       if (e.key === char.textContent) {
@@ -371,7 +395,10 @@ function test() {
       } else {
         char.textContent = e.key;
         char.style.color = "red";
+        char.style.backgroundColor = "transparent";
         char.insertAdjacentElement("afterend", cursor);
+        typed++;
+        wrong++;
       }
     }
     j++;
@@ -391,6 +418,9 @@ function test() {
         char.textContent = splitText[j];
       }
       typed--;
+      if (char.style.backgroundColor === "transparent") {
+        wrong--;
+      }
     }
   });
 
@@ -425,36 +455,35 @@ function start() {
     var seconds = Math.floor((i / 1000) % 60);
     btn.innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     i -= 1000;
-    if (seconds <= 10 && seconds > 0 && minutes == 0) {
-      btn.style.backgroundColor = "red";
-    }
-    if (seconds == 0 && minutes == 0) {
+
+    if (textLength === typed && wrong === 0) {
+      console.log("complete");
+      let totalMinutes = time - (minutes + seconds / 60);
+      console.log(totalMinutes);
+      let gross = typed + wrong;
+      let wordsPerMinute = Math.round(gross / 5 / totalMinutes);
+      console.log(wordsPerMinute);
+      let accuracy = Math.round((typed / gross) * 100);
+      console.log(accuracy);
       clearInterval(timer);
-      btn.innerHTML = "";
-      btn.style.backgroundColor = "green";
-      btn.style.width = "54px";
-      btn.style.padding = "0px";
-      let stopIcon = document.createElement("i");
-      stopIcon.setAttribute("class", "fas fa-stop");
-      btn.appendChild(stopIcon);
-
-      let wordsPerMinute = Math.round(typed / 5 / time);
-      wpm.innerHTML = wordsPerMinute + " WPM";
-
-      scores.push(Math.round(typed / 5 / time));
-      localStorage.setItem("scores", JSON.stringify(scores));
-      let scoresArray = JSON.parse(localStorage.getItem("scores"));
-
-      popup.style.display = "flex";
+      const congrats = document.getElementById("congrats");
+      const congratsShadow = document.getElementById("congratsShadow");
+      popup.style.transform = "scale(1)";
+      congrats.style.display = "block";
+      congratsShadow.style.display = "block";
+      wpm.innerHTML =
+        wordsPerMinute +
+        " WPM" +
+        `<br>` +
+        `<span id="accuracy"
+        >with <span id="percent">${accuracy}%</span> accuracy</span
+      >`;
       close.addEventListener("click", () => {
         location.reload();
       });
       retake.addEventListener("click", () => {
         location.reload();
       });
-
-      console.log(wordsPerMinute);
-
       if (wordsPerMinute < 10) {
         review.innerHTML = "You are in the bottom 10% of typists!";
         wpm.style.color = "red";
@@ -479,6 +508,103 @@ function start() {
       } else {
         review.innerHTML =
           "You are a beast! You are now in the top 1% of typists!";
+      }
+    }
+
+    if (seconds <= 10 && seconds > 0 && minutes == 0) {
+      btn.style.backgroundColor = "red";
+    }
+    if (seconds == 0 && minutes == 0) {
+      clearInterval(timer);
+      btn.innerHTML = "";
+      btn.style.backgroundColor = "green";
+      btn.style.width = "54px";
+      btn.style.padding = "0px";
+      let stopIcon = document.createElement("i");
+      stopIcon.setAttribute("class", "fas fa-stop");
+      btn.appendChild(stopIcon);
+
+      gross = typed + wrong;
+
+      console.log(typed);
+      console.log(wrong);
+
+      if (errorCheck === false) {
+        if (wrong > (typed / 100) * 20) {
+          validity = true;
+        } else {
+          validity = false;
+        }
+      }
+
+      if (validity) {
+        retry.style.opacity = "1";
+        retry.style.transform = "translate(-50%, -50%)";
+        document.addEventListener("keypress", (e) => {
+          location.reload();
+        });
+        document.addEventListener("click", () => {
+          location.reload();
+        });
+      } else {
+        let wordsPerMinute = Math.round(gross / 5 / time);
+        let formula = Math.round((typed / gross) * 100);
+        accuracy = formula + "%";
+        wpm.innerHTML =
+          wordsPerMinute +
+          " WPM" +
+          `<br>` +
+          `<span id="accuracy"
+        >with <span id="percent">${accuracy}</span> accuracy</span
+      >`;
+
+        const percentage = document.getElementById("percent");
+        if (formula > 90) {
+          percentage.style.color = "darkgreen";
+        } else if (formula > 80 && formula <= 90) {
+          percentage.style.color = "green";
+        } else if (formula > 60 && formula <= 80) {
+          percentage.style.color = "yellowgreen";
+        } else if (formula > 40 && formula <= 60) {
+          percentage.style.color = "orange";
+        } else {
+          percentage.style.color = "red";
+        }
+
+        popup.style.transform = "scale(1)";
+        close.addEventListener("click", () => {
+          location.reload();
+        });
+        retake.addEventListener("click", () => {
+          location.reload();
+        });
+
+        if (wordsPerMinute < 10) {
+          review.innerHTML = "You are in the bottom 10% of typists!";
+          wpm.style.color = "red";
+        } else if (wordsPerMinute >= 10 && wordsPerMinute < 20) {
+          review.innerHTML = "You need some massive improvement and practise!";
+        } else if (wordsPerMinute >= 20 && wordsPerMinute < 30) {
+          review.innerHTML = "You are below average and can do better!";
+        } else if (wordsPerMinute >= 30 && wordsPerMinute < 40) {
+          review.innerHTML =
+            "Decent, but still below average, keep practising!";
+        } else if (wordsPerMinute >= 40 && wordsPerMinute < 50) {
+          review.innerHTML =
+            "You are now an average typist. You still have significant room for improvement";
+        } else if (wordsPerMinute >= 50 && wordsPerMinute < 60) {
+          review.innerHTML =
+            "Congratulations! You are now above average. Keep practising to improve further!";
+        } else if (wordsPerMinute >= 60 && wordsPerMinute < 80) {
+          review.innerHTML =
+            "You are above average and can apply for typing jobs!";
+        } else if (wordsPerMinute >= 80 && wordsPerMinute < 100) {
+          review.innerHTML =
+            "You are a catch! You are now in the top 10% of typists!";
+        } else {
+          review.innerHTML =
+            "You are a beast! You are now in the top 1% of typists!";
+        }
       }
     }
   }
