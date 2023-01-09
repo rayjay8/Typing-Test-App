@@ -44,9 +44,8 @@ let validity = false;
 let selection = 0;
 let j = 0;
 let textLength = 0;
-let scores = [];
-
 let time = 1;
+let extra = 1000;
 let typed = 0;
 let wrong = 0;
 let gross = 0;
@@ -271,6 +270,8 @@ submit.addEventListener("click", () => {
   }, 500);
 
   time = selectTime.value;
+  extra = selectTime.value * 1000;
+  console.log(extra);
 
   if (backspace.checked) {
     backSpaceCheck = true;
@@ -278,7 +279,6 @@ submit.addEventListener("click", () => {
 
   if (errors.checked) {
     errorCheck = true;
-    console.log(errorCheck);
   }
 
   if (casing.checked) {
@@ -332,7 +332,6 @@ function test() {
   theme.style.opacity = "0.5";
   let text = content.textContent.replace(/\s+/g, " ").trim();
   textLength = text.length;
-  console.log(textLength);
   const splitText = text.split("");
 
   const words = text.split(" ");
@@ -442,6 +441,28 @@ function test() {
   };
 }
 
+let height = box.offsetHeight;
+let lineHeight = tempCursor.offsetHeight;
+let wordWidth = tempCursor.offsetWidth;
+let boxProperties = window.getComputedStyle(box);
+let boxLine = parseInt(boxProperties.getPropertyValue("line-height"));
+let boxPadding = parseInt(boxProperties.getPropertyValue("padding-top"));
+let contentWidth = content.offsetWidth;
+let wordsInLine = Math.floor(contentWidth / wordWidth);
+let firstScroll = boxPadding + lineHeight + boxLine / 2;
+let limit = 3 * wordsInLine;
+
+function scrollCheck() {
+  if (typed === limit) {
+    box.scrollBy(0, firstScroll);
+    firstScroll = lineHeight + boxLine / 2;
+    limit += wordsInLine;
+    console.log(limit);
+  }
+}
+
+let scrollTimer = setInterval(scrollCheck, 100);
+
 function start() {
   let i = time * 60 * 1000;
 
@@ -457,14 +478,10 @@ function start() {
     i -= 1000;
 
     if (textLength === typed && wrong === 0) {
-      console.log("complete");
       let totalMinutes = time - (minutes + seconds / 60);
-      console.log(totalMinutes);
       let gross = typed + wrong;
       let wordsPerMinute = Math.round(gross / 5 / totalMinutes);
-      console.log(wordsPerMinute);
       let accuracy = Math.round((typed / gross) * 100);
-      console.log(accuracy);
       clearInterval(timer);
       const congrats = document.getElementById("congrats");
       const congratsShadow = document.getElementById("congratsShadow");
@@ -485,7 +502,8 @@ function start() {
         location.reload();
       });
       if (wordsPerMinute < 10) {
-        review.innerHTML = "You are in the bottom 10% of typists!";
+        review.innerHTML =
+          "You are in the bottom 10% of typists, you need to practise a lot!";
         wpm.style.color = "red";
       } else if (wordsPerMinute >= 10 && wordsPerMinute < 20) {
         review.innerHTML = "You need some massive improvement and practise!";
@@ -548,7 +566,7 @@ function start() {
         });
       } else {
         let wordsPerMinute = Math.round(gross / 5 / time);
-        let formula = Math.round((typed / gross) * 100);
+        let formula = parseFloat((typed / gross) * 100).toFixed(1);
         accuracy = formula + "%";
         wpm.innerHTML =
           wordsPerMinute +
@@ -666,6 +684,6 @@ document.addEventListener("keydown", (e) => {
           e.preventDefault();
         }
       });
-    }, time * 60 * 1000 + 1000);
+    }, time * 60 * 1000 + extra);
   }
 });
